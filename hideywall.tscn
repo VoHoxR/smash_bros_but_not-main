@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdxs0c4csnje5"]
+
+[sub_resource type="GDScript" id="GDScript_j5v73"]
+script/source = "extends Area2D
+
+@onready var is_hiding = false
+@onready var player = get_node(\"player\")
+@onready var hideywall = $\".\"
+@onready var hideywall2 = $\"../hideywall2\"
+@onready var hideywall3 = $\"../hideywall3\"
+# Called awhen the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+
+func _on_area_entered(area):
+	if area.is_in_group(\"hideywalls\"):
+		hideywall.position.x = randf_range(0,950)
+		hideywall2.position.x = randf_range(0,950)
+		hideywall3.position.x = randf_range(0,950)
+		
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6rrx"]
+size = Vector2(375, 542)
+
+[node name="hideywall" type="Area2D"]
+script = SubResource("GDScript_j5v73")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 375.0
+offset_bottom = 542.0
+color = Color(0.647059, 0, 0.301961, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(187.5, 271)
+shape = SubResource("RectangleShape2D_t6rrx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

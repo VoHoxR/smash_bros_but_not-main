@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2jnva2m4ss70"]
+
+[ext_resource type="PackedScene" uid="uid://ds5vr2d2yjxl8" path="res://player.tscn" id="1_8aip4"]
+[ext_resource type="PackedScene" uid="uid://cdxs0c4csnje5" path="res://hideywall.tscn" id="1_gfhyr"]
+[ext_resource type="Script" path="res://world.gd" id="1_y4kde"]
+[ext_resource type="PackedScene" uid="uid://bkeong5yubbpx" path="res://panel.tscn" id="3_vr1ep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqkk"]
+size = Vector2(1752, 92)
+
+[node name="world" type="Node2D"]
+position = Vector2(68, 443)
+script = ExtResource("1_y4kde")
+
+[node name="hideywalls" type="Node2D" parent="." groups=["hideywalls"]]
+
+[node name="hideywall" parent="hideywalls" groups=["hideywalls"] instance=ExtResource("1_gfhyr")]
+position = Vector2(12, -197)
+scale = Vector2(0.404658, 0.570159)
+
+[node name="hideywall2" parent="hideywalls" groups=["hideywalls"] instance=ExtResource("1_gfhyr")]
+position = Vector2(431, -240)
+scale = Vector2(0.404658, 0.570159)
+
+[node name="hideywall3" parent="hideywalls" groups=["hideywalls"] instance=ExtResource("1_gfhyr")]
+position = Vector2(831, -173)
+scale = Vector2(0.404658, 0.570159)
+
+[node name="floor" type="StaticBody2D" parent="."]
+
+[node name="floor_color_1" type="ColorRect" parent="floor"]
+offset_left = -352.0
+offset_right = 1400.0
+offset_bottom = 92.0
+size_flags_horizontal = 8
+color = Color(0, 0.0470588, 0.701961, 1)
+
+[node name="floor_color_2" type="ColorRect" parent="floor"]
+offset_left = -348.0
+offset_top = 4.0
+offset_right = 1390.0
+offset_bottom = 88.0
+color = Color(0, 0.698039, 1, 1)
+
+[node name="floor_collision" type="CollisionShape2D" parent="floor"]
+position = Vector2(521, 46)
+shape = SubResource("RectangleShape2D_5hqkk")
+
+[node name="player" parent="." instance=ExtResource("1_8aip4")]
+position = Vector2(179, -244)
+
+[node name="noseenomove" type="ColorRect" parent="."]
+visible = false
+offset_left = -115.0
+offset_top = -522.0
+offset_right = 1235.0
+offset_bottom = 330.0
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -67.0
+offset_top = -443.0
+offset_right = 136.0
+offset_bottom = -360.0
+
+[node name="Panel" parent="Control" instance=ExtResource("3_vr1ep")]
+layout_mode = 0
+
+[node name="Ze Timer2" type="Label" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.111
+offset_right = 183.356
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 60
+
+[node name="Timer2" type="Timer" parent="Control/Panel"]
+wait_time = 10.0
+autostart = true
+
+[connection signal="area_entered" from="hideywalls/hideywall" to="hideywalls/hideywall" method="_on_area_entered"]
+[connection signal="timeout" from="Control/Panel/Timer2" to="." method="_on_timer_2_timeout"]

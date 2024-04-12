@@ -1,0 +1,11 @@
+ColorRect
+CollisionShape2D
+StaticBody2D
+Control
+Timer
+Label
+Panel
+Node2D
+Area2D
+CharacterBody2D
+MeshInstance2D
